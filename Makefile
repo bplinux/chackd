@@ -5,6 +5,6 @@ CC=gcc
 CFLAGS=-Wall -g
 
 all:
-	$(CC) $(CFLAGS) *.c -o challackd
+	$(CC) $(CFLAGS) ./src/*.c -o ./binary/challackd
 clean:
-	rm -f ./challackd
+	rm -f ./binary/challackd

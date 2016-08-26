@@ -1,5 +1,5 @@
-#include "global.h"
-#include "stop_daemon.h"
+#include "../include/global.h"
+#include "../include/stop_daemon.h"
 
 void stop_daemon( int rcvd_signal )
 {

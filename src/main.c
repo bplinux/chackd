@@ -1,10 +1,10 @@
 // ----------------------------
 // "challackd" specific header files
 
-#include "global.h"
-#include "init_daemon.h"
-#include "start_daemon.h"
-#include "stop_daemon.h"
+#include "../include/global.h"
+#include "../include/init_daemon.h"
+#include "../include/start_daemon.h"
+#include "../include/stop_daemon.h"
 
 int main( int argc, char *argv[] )
 {

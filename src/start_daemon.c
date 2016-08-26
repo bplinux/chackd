@@ -1,5 +1,5 @@
-#include "global.h"
-#include "start_daemon.h"
+#include "../include/global.h"
+#include "../include/start_daemon.h"
 
 static int generate_next( int local_base_value, int local_noise_value )
 {
