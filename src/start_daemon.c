@@ -1,5 +1,5 @@
-#include "../include/global.h"
-#include "../include/start_daemon.h"
+#include "include/global.h"
+#include "include/start_daemon.h"
 
 static int generate_next( int local_base_value, int local_noise_value )
 {
@@ -37,7 +37,7 @@ void start_daemon()
 	int next;
 
 	while( 1 ) {
-		sleep( 2 ); // two seconds of daemon thread sleep
+		sleep( 1 ); // two seconds of daemon thread sleep
 
 		next = generate_next( base_value, noise_value );
 

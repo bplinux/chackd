@@ -1,10 +1,10 @@
 // ----------------------------
 // "challackd" specific header files
 
-#include "../include/global.h"
-#include "../include/init_daemon.h"
-#include "../include/start_daemon.h"
-#include "../include/stop_daemon.h"
+#include "include/global.h"
+#include "include/init_daemon.h"
+#include "include/start_daemon.h"
+#include "include/stop_daemon.h"
 
 int main( int argc, char *argv[] )
 {
@@ -24,18 +24,18 @@ int main( int argc, char *argv[] )
 	// TODO: unhandled errors?
 
 	if( argc < 3 ) {
-		syslog( LOG_INFO, "too few parameter, set base=200, noise=40" );
-		base_value = 200;
-		noise_value = 40;
+		syslog( LOG_INFO, "too few parameter, set base=100, noise=20" );
+		base_value = 100;
+		noise_value = 20;
 	} else {
 		base_value = atoi( argv[1] );
 		noise_value = atoi( argv[2] );
 	}
 	
 	if( base_value < noise_value || base_value < 0 || noise_value < 0) {
-		syslog( LOG_INFO, "wrong parameter, set base=200, noise=40" );
-		base_value = 200;
-		noise_value = 40;
+		syslog( LOG_INFO, "wrong parameter, set base=100, noise=20" );
+		base_value = 100;
+		noise_value = 20;
 	}
 
 	

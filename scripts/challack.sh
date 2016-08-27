@@ -16,7 +16,7 @@ fi
 case "$1" in
 start)	
 	echo "starting challack daemon"
-	if [[ $(./challackd) -eq 0 ]];
+	if [[ $(/usr/bin/challackd) -eq 0 ]];
 	then
 		echo "daemon started"
 	fi
