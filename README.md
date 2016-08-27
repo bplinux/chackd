@@ -14,7 +14,7 @@ I need help from the community to make this project "community standard".
 
 # Description
 
-The daemon is coded in c. It maybe compiled with the Makefile (all;debug;clean). make all is compiling all source-files without any debug informations. Maybe you want to know what challack daemon does, do it with make debug. make clean removes only the executable file. The daemon write a random value r in the intervall (base - noise) < r < (base + noise) into the proc file. base and noise can take any positive integer and the default is base=200 noise=40.
+The daemon is coded in c. It maybe compiled with the Makefile (all;debug;clean). make all is compiling all source-files without any debug informations. Maybe you want to know what challack daemon does, do it with make debug. make clean removes only the executable file. The daemon write a random value r in the intervall (base - noise) < r < (base + noise) into the proc file. base and noise can take any positive integer and the default is base=100 noise=20.
 
 # Files
 
