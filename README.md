@@ -50,6 +50,26 @@ Any part of code which might caus the daemon to crash must be fixed
 main	-
 My intention is that main parameters are given as simple integer, currently it works well. However maybe there is a much better way of handling?
 
+# Output 
+
+2 seconds intervall of "sysctl net.ipv4.tcp_challenge_ack_limit"
+
+net.ipv4.tcp_challenge_ack_limit = 222
+
+net.ipv4.tcp_challenge_ack_limit = 227
+
+net.ipv4.tcp_challenge_ack_limit = 191
+
+net.ipv4.tcp_challenge_ack_limit = 178
+
+net.ipv4.tcp_challenge_ack_limit = 229
+
+net.ipv4.tcp_challenge_ack_limit = 167
+
+net.ipv4.tcp_challenge_ack_limit = 189
+
+net.ipv4.tcp_challenge_ack_limit = 229
+
 # Author
 
 Bastian Pukallus, please mail to bastianpukallus@gmail.com
