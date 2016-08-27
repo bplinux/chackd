@@ -18,27 +18,17 @@ The daemon is coded in c. It maybe compiled with the Makefile (all;debug;clean).
 
 # Files
 
-Makefile      - Makefile
-
-global.h      - Handle compiler options and define global variables
-
-main.c        - main function and your entry in challack-daemon
-
-init_daemon.h - interface header for init_daemon.c
-
-init_daemon.c - initialization of the daemon, just to make challackd a daemon process
-
-start_daemon.h- interface header for start_daemon.c
-
-start_daemon.c- main functionality with random-generator and proc-file Handling
-
-stop_daemon.h - interface header for stop_daemon.c
-
-stop_daemon.c - containing the signal handler for SIGUSR1 which is used to stopp the daemon
-
-test.sh - simple check the current kernel parameter to show the daemon is working
-
-challackd.script.h - start stop script of the daemon
+1. *Makefile*      - Makefile
+2. *global.h*      - Handle compiler options and define global variables
+3. *main.c*        - main function and your entry in challack-daemon
+4. *init_daemon.h* - interface header for init_daemon.c
+5. *init_daemon.c* - initialization of the daemon, just to make challackd a daemon process
+6. *start_daemon.h*- interface header for start_daemon.c
+7. *start_daemon.c*- main functionality with random-generator and proc-file Handling
+8. *stop_daemon.h* - interface header for stop_daemon.c
+9. *stop_daemon.c* - containing the signal handler for SIGUSR1 which is used to stopp the daemon
+10. *test.sh*       - simple check the current kernel parameter to show the daemon is working
+11. *challackd.script.h* - start stop script of the daemon
 
 # TODOs
 
