@@ -1,10 +1,12 @@
 # challack-daemon
-challack-daemon randomize tcp_challenge_ack_limit to prevent side channel attacks
+challack-daemon adjusting the kernel parameter tcp_challenge_ack_limit by randomizing to prevent side channel attacks
 
 # Abstract
-A shortly presented side-channel attack has given strong attention of the community [1] . For lots of servers or smartphone devices this attack is dangerous for ipv4 connections. There is no doubt that the kernel is fixing this issue in the next versions. However, some admins might not update the kernel due to specific reasons or just lazyness. 
+A shortly presented side-channel attack has given strong attention of the community [1] . For lots of servers or smartphone devices this attack considered dangerous for ipv4 connections. There is no doubt that the kernel will get is fixed this issue in the next versions. However, some admins might not update the kernel due to specific reasons or just lazyness. 
 
-A work-around as published in [2] might help, but for server workload efficency such high values shall be avoided [1]. Some possible methods are given in [1] which show of preventing those attacks by making an attacker mad of these approaches. One concept is to randomize the system limit. The challack daemon does this job very well and keep it simple. An former concept of mine was looking for a loadable kernel module but i discarded this, because there is a powerful interface between user- and kernelspace called proc vfs. With proc files we are able to do the job with a simple daemon.
+Adjusting the parameter to a very high value [2] will work fine. On the other side for server application it might result in an unecessary amount of traffic. To prevent this i have written the challackd(aemon) program. It is able to get parametered to aim the solution presented in [1].
+
+The challack daemon does this job very well and keeping it simple. An former concept of mine was looking for a loadable kernel module but i discarded this, because there is a powerful interface between user- and kernelspace called proc vfs. With proc files we are able to do the job with a simple daemon.
 
 This is my first open-source project with a nice benifit for admins who want to secure agains challenge_ack_limit attacks and are not able to update their kernel. Just compile it and run it on your server.
 
@@ -12,7 +14,7 @@ I need help from the community to make this project "community standard".
 
 # Description
 
-The daemon is coded in c. It maybe compiled with the Makefile (all;debug;clean). make all is compiling all source-files without any debug informations. Maybe you want to know what challack daemon does, do it with make debug. make clean removes only the executable file
+The daemon is coded in c. It maybe compiled with the Makefile (all;debug;clean). make all is compiling all source-files without any debug informations. Maybe you want to know what challack daemon does, do it with make debug. make clean removes only the executable file. The daemon write a random value r in the intervall (base - noise) < r < (base + noise) into the proc file. base and noise can take any positive integer and the default is base=200 noise=40.
 
 # Files
 
@@ -33,6 +35,10 @@ start_daemon.c- main functionality with random-generator and proc-file Handling
 stop_daemon.h - interface header for stop_daemon.c
 
 stop_daemon.c - containing the signal handler for SIGUSR1 which is used to stopp the daemon
+
+test.sh - simple check the current kernel parameter to show the daemon is working
+
+challackd.script.h - start stop script of the daemon
 
 # TODOs
 
