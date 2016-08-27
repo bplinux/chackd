@@ -37,16 +37,19 @@ void start_daemon()
 	int next;
 
 	while( 1 ) {
-		sleep( 1 ); // two seconds of daemon thread sleep
+		sleep( 1 ); // one seconds of daemon thread sleep
 
 		next = generate_next( base_value, noise_value );
 
 		if( ( f_proc = fopen( CHALLACKD_LIMIT_FILE, "w" ) ) == NULL ) {
 			_udebug( "failed to open proc file, skipping..." );
-			continue;
+			continue; // skip to next round
 		}
 		
-		fprintf( f_proc, "%d\n", next );
+		if( ( fprintf( f_proc, "%d\n", next ) ) < 0 ) {
+			syslog( LOG_INFO, "failed to write value to proc-file");
+		}
+
 		fclose( f_proc );
 	}
 

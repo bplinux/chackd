@@ -2,12 +2,18 @@
 # TODO description
 
 CC=gcc
-CFLAGS=-Wall -g
+CFLAGS=-Wall -g -DDEBUG
+PATH_BIN=/usr/bin/challackd
 
 all:
-	$(CC) $(CFLAGS) ./src/*.c -o /usr/bin/challackd
+	echo "Making of challack daemon ..."
+	$(CC) ./src/*.c -o $(PATH_BIN)
+	echo "completed."
 clean:
+	echo "Removing challack daemon from /usr/bin/ ..."
 	rm -f /usr/bin/challackd
-
+	echo "completed."
 debug:
-	$(CC) $(CFLAGS) -DDEBUG ./src/*.c -o /usr/bin/challackd
+	echo "Making debug version of challack daemon ..."
+	$(CC) $(CFLAGS) ./src/*.c -o $(PATH_BIN)
+	echo "completed."

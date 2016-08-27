@@ -9,10 +9,15 @@ void stop_daemon( int rcvd_signal )
 
 	// ------------------------------------------------------------------
 	// writing the default value into the proc file and close file stream
-	// TODO: unhandled errors?
 
-	f_proc = fopen( CHALLACKD_LIMIT_FILE, "w");
-	fprintf( f_proc, "%d\n", default_limit );
+	if( ( f_proc = fopen( CHALLACKD_LIMIT_FILE, "w") ) == NULL ) {
+		syslog( LOG_INFO, "failed to open proc-file" );
+		exit( EXIT_FAILURE );
+	}
+	if( fprintf( f_proc, "%d\n", default_limit ) < 0 ) {
+		syslog( LOG_INFO, "failed to write value to proc-file" );
+		exit( EXIT_FAILURE );
+	}
 	fclose( f_proc );
 
 	// -------------------------------------------------------

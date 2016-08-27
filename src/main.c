@@ -1,4 +1,4 @@
-// ----------------------------
+// ---------------------------------
 // "challackd" specific header files
 
 #include "include/global.h"
@@ -11,11 +11,14 @@ int main( int argc, char *argv[] )
 	// ---------------------------------
 	// Initialize monitoring via syslogd
 
-	openlog( "challackd", LOG_PID, LOG_DAEMON);
+	openlog( "challackd", LOG_PID, LOG_DAEMON );
 	_udebug( "main procedure started" );
 
+	// --------------------------------
+	// Check if superuser is using this
+
 	if ( geteuid() != 0 ) {
-		printf("challackd has to be executed as superuser!\n");
+		printf( "challackd has to be executed as superuser!\n" );
 		exit( EXIT_FAILURE );
 	}
 
@@ -28,16 +31,16 @@ int main( int argc, char *argv[] )
 		base_value = 100;
 		noise_value = 20;
 	} else {
-		base_value = atoi( argv[1] );
-		noise_value = atoi( argv[2] );
+		// I do not think that error handling is necessary here
+		base_value = (int) strtol( argv[1], NULL, 0 );
+		noise_value = (int) strtol( argv[2], NULL, 0 );
 	}
 	
-	if( base_value < noise_value || base_value < 0 || noise_value < 0) {
+	if( base_value < noise_value || base_value < 0 || noise_value < 0 ) {
 		syslog( LOG_INFO, "wrong parameter, set base=100, noise=20" );
 		base_value = 100;
 		noise_value = 20;
 	}
-
 	
 	// ------------------------------------------------	
 	// Handle daemon initialization and possible errors

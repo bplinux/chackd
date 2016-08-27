@@ -16,9 +16,9 @@ int init_daemon()
 	struct sigaction ignore;
 	struct sigaction stop;
 
-	// TODO: add more terminal generated signals
+	// These are terminal generated signals(?)
 
-	int ignore_signals[] = { SIGINT };
+	int ignore_signals[] = { SIGHUP, SIGINT, SIGTERM };
 
 	// -------------------------------------
 	// Setting up the signal handle routines
@@ -57,19 +57,29 @@ int init_daemon()
 
 	// -----------------------------------------------------
 	// making child process a full session leader and set-up
-	// TODO: unhandled errors?
 
-	setsid();
-	chroot("/");
+	if( setsid() == ((pid_t) -1) ) {
+		syslog( LOG_INFO, "failed to make child a session leader" );
+		return( INIT_DAEMON_FAILURE );
+	}
+	if( chroot("/") == -1 ) {
+		syslog( LOG_INFO, "failed to change working directory" );
+		return( INIT_DAEMON_FAILURE );
+	}
+	
 	umask(0);
 
 	// -------------------------------
 	// closing unused file-descriptors
-	// TODO: unhandled errors?
+	// TODO: it might exists a better looking form of this error handling
 
-	close( STDIN_FILENO );
-	close( STDOUT_FILENO );
-	close( STDERR_FILENO );
+	if ( \
+		close( STDIN_FILENO ) + \
+		close( STDOUT_FILENO ) + \
+		close( STDERR_FILENO ) < 0 ) {
+		syslog( LOG_INFO, "failed to close stdio descriptors" );
+		return( INIT_DAEMON_FAILURE );
+	}
 
 	// --------------------------------------------
 	// forking the child process to generate daemon
@@ -89,20 +99,37 @@ int init_daemon()
 
 	// --------------------------------------------------------
 	// I am challack daemon process; writing my PID to PID_FILE
-	// TODO: unhandled errors?
 
-	f_pid = fopen( CHALLACKD_PID_FILE, "w" );
-	fprintf( f_pid, "%d\n", getpid() );
-	fclose( f_pid );
+	if( ( f_pid = fopen( CHALLACKD_PID_FILE, "w" ) ) == NULL ) {
+		syslog( LOG_INFO, "failed to open pid-file" );
+		return( INIT_DAEMON_FAILURE );
+	}
+	if( fprintf( f_pid, "%d\n", getpid() ) < 0 ) {
+		syslog( LOG_INFO, "failed to write pid to pid-file" );
+		return( INIT_DAEMON_FAILURE );
+	}
+	if( fclose( f_pid ) != 0 ) {
+		syslog( LOG_INFO, "failed to close pid-file-stream" );
+		return( INIT_DAEMON_FAILURE );
+	}
 
 	// ----------------------------------------------------
 	// load default limit value from tcp_challenge_ack_limit
-	// TODO: unhandled errors?
 
-	f_proc = fopen( CHALLACKD_LIMIT_FILE, "r");
-	getline( &defptr, &deflen, f_proc );
-	fclose( f_proc );
-	default_limit = atoi( defptr );
+	if( (f_proc = fopen( CHALLACKD_LIMIT_FILE, "r" ) ) == NULL ) {
+		syslog( LOG_INFO, "failed to open proc-file" );
+		return( INIT_DAEMON_FAILURE );
+	}
+	if( ( getline( &defptr, &deflen, f_proc ) ) == -1 ) {
+		syslog( LOG_INFO, "can't read proc-file" );
+		return( INIT_DAEMON_FAILURE );
+	}
+	if( fclose( f_proc ) != 0 ) {
+		syslog( LOG_INFO, "failed to close proc-file-stream" );
+		return( INIT_DAEMON_FAILURE );
+	}
+	
+	default_limit = (int) strtol( defptr, NULL, 10 );
 	free( defptr );
 
 	_udebug( "default value saved" );
