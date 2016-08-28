@@ -52,7 +52,7 @@ My intention is that main parameters are given as simple integer, currently it w
 
 # Output 
 
-2 seconds intervall of "sysctl net.ipv4.tcp_challenge_ack_limit"
+1 seconds intervall of "sysctl net.ipv4.tcp_challenge_ack_limit"
 
 net.ipv4.tcp_challenge_ack_limit = 222
 
