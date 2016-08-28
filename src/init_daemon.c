@@ -15,6 +15,15 @@ int init_daemon()
 
 	struct sigaction ignore;
 	struct sigaction stop;
+	struct sigaction old; // prevent warnings in valgrind
+
+	sigemptyset(&ignore.sa_mask);
+	sigemptyset(&stop.sa_mask);
+	sigemptyset(&old.sa_mask);
+
+	ignore.sa_flags = 0;
+	stop.sa_flags = 0;
+	old.sa_flags = 0;
 
 	// These are terminal generated signals(?)
 
@@ -30,7 +39,7 @@ int init_daemon()
 	// Setting up the signals which has to be ignored
 
 	for( i = 0; i < sizeof( ignore_signals ) / sizeof( int ); i++) {
-		if( sigaction( ignore_signals[i], &ignore, NULL ) == -1 ) {
+		if( sigaction( ignore_signals[i], &ignore, &old ) == -1 ) {
 			_udebug( "failed to sigaction() ignore signals" );
 			return( INIT_DAEMON_FAILURE );
 		}
@@ -137,7 +146,7 @@ int init_daemon()
 	// ----------------------------------
 	// Setting up the stop signal handler
 
-	if( sigaction( SIGUSR1, &stop, NULL ) == -1 ) {
+	if( sigaction( SIGUSR1, &stop, &old ) == -1 ) {
 		_udebug( "failed to sigaction() SIGUSR1 to stop" );
 		return( INIT_DAEMON_FAILURE );
 	}	
