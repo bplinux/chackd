@@ -21,8 +21,8 @@
 	#define _udebug(s)
 #endif
 
-#define CHALLACKD_LIMIT_FILE "/proc/sys/net/ipv4/tcp_challenge_ack_limit"
-#define CHALLACKD_PID_FILE "/var/run/challackd.pid"
+#define CHACKD_LIMIT_FILE "/proc/sys/net/ipv4/tcp_challenge_ack_limit"
+#define CHACKD_PID_FILE "/var/run/chackd.pid"
 
 FILE *f_proc; /* used for tcp_challenge_ack_limit proc-file has to be global for
 start_daemon and stop_daemon functions */

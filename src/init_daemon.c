@@ -107,9 +107,9 @@ int init_daemon()
 	};
 
 	// --------------------------------------------------------
-	// I am challack daemon process; writing my PID to PID_FILE
+	// I am chack daemon process; writing my PID to PID_FILE
 
-	if( ( f_pid = fopen( CHALLACKD_PID_FILE, "w" ) ) == NULL ) {
+	if( ( f_pid = fopen( CHACKD_PID_FILE, "w" ) ) == NULL ) {
 		syslog( LOG_INFO, "failed to open pid-file" );
 		return( INIT_DAEMON_FAILURE );
 	}
@@ -125,7 +125,7 @@ int init_daemon()
 	// ----------------------------------------------------
 	// load default limit value from tcp_challenge_ack_limit
 
-	if( (f_proc = fopen( CHALLACKD_LIMIT_FILE, "r" ) ) == NULL ) {
+	if( (f_proc = fopen( CHACKD_LIMIT_FILE, "r" ) ) == NULL ) {
 		syslog( LOG_INFO, "failed to open proc-file" );
 		return( INIT_DAEMON_FAILURE );
 	}
@@ -152,7 +152,7 @@ int init_daemon()
 	}	
 
 	// ----------------------------------------------
-	// challack daemon successful initialized; return
+	// chack daemon successful initialized; return
 
 	return( INIT_DAEMON_SUCCESS );
 }

@@ -10,7 +10,7 @@ void stop_daemon( int rcvd_signal )
 	// ------------------------------------------------------------------
 	// writing the default value into the proc file and close file stream
 
-	if( ( f_proc = fopen( CHALLACKD_LIMIT_FILE, "w") ) == NULL ) {
+	if( ( f_proc = fopen( CHACKD_LIMIT_FILE, "w") ) == NULL ) {
 		syslog( LOG_INFO, "failed to open proc-file" );
 		exit( EXIT_FAILURE );
 	}
@@ -26,9 +26,9 @@ void stop_daemon( int rcvd_signal )
 	_udebug( "default value restored" );
 
 	// -------------------------
-	// remove challackd pid file
+	// remove chackd pid file
 
-	if( remove( CHALLACKD_PID_FILE ) == -1 ) {
+	if( remove( CHACKD_PID_FILE ) == -1 ) {
 		syslog( LOG_INFO, "can't remove pid file" );
 		exit( EXIT_FAILURE );
 	}

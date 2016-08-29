@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PID_FILE=/var/run/challackd.pid
+PID_FILE=/var/run/chackd.pid
 
 if [[ ${EUID} -ne 0 ]]; 
 then
@@ -15,8 +15,8 @@ fi
 
 case "$1" in
 start)	
-	echo "starting challack daemon"
-	if [[ $(/usr/bin/challackd) -eq 0 ]];
+	echo "starting chackd"
+	if [[ $(/usr/bin/chackd) -eq 0 ]];
 	then
 		echo "daemon started"
 	fi
@@ -24,9 +24,9 @@ start)
 stop)
 	if [[ $(test -e ${PID_FILE}) ]]; 
 	then
-		echo "challack daemon is not running"
+		echo "chackd is not running"
 	fi
-		echo "stopping challack daemon..."
+		echo "stopping daemon..."
 		cat ${PID_FILE} | xargs kill -s SIGUSR1
 	;;
 esac

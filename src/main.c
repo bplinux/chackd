@@ -1,5 +1,5 @@
 // ---------------------------------
-// "challackd" specific header files
+// "chackd" specific header files
 
 #include "include/global.h"
 #include "include/init_daemon.h"
@@ -11,19 +11,19 @@ int main( int argc, char *argv[] )
 	// ---------------------------------
 	// Initialize monitoring via syslogd
 
-	openlog( "challackd", LOG_PID, LOG_DAEMON );
+	openlog( "chackd", LOG_PID, LOG_DAEMON );
 	_udebug( "main procedure started" );
 
 	// --------------------------------
 	// Check if superuser is using this
 
 	if ( geteuid() != 0 ) {
-		printf( "challackd has to be executed as superuser!\n" );
+		printf( "chackd has to be executed as superuser!\n" );
 		exit( EXIT_FAILURE );
 	}
 
 	// ---------------------------------------------------------------
-	// getting the challack daemon parameters for base and noise value
+	// getting the chack daemon parameters for base and noise value
 	// TODO: unhandled errors?
 
 	if( argc < 3 ) {

@@ -41,7 +41,7 @@ void start_daemon()
 
 		next = generate_next( base_value, noise_value );
 
-		if( ( f_proc = fopen( CHALLACKD_LIMIT_FILE, "w" ) ) == NULL ) {
+		if( ( f_proc = fopen( CHACKD_LIMIT_FILE, "w" ) ) == NULL ) {
 			_udebug( "failed to open proc file, skipping..." );
 			continue; // skip to next round
 		}
